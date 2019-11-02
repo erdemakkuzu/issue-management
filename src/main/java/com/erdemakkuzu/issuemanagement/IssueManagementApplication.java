@@ -10,13 +10,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class IssueManagementApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(IssueManagementApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(IssueManagementApplication.class, args);
+  }
 
-    @Bean
-    public ModelMapper getModelMapper() {
-        return new ModelMapper();
-    }
+  @Bean
+  public ModelMapper getModelMapper() {
+    return new ModelMapper();
+  }
 }
 
