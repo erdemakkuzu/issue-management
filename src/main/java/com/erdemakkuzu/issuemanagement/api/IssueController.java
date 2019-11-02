@@ -2,72 +2,77 @@ package com.erdemakkuzu.issuemanagement.api;
 
 
 import com.erdemakkuzu.issuemanagement.dto.IssueDto;
-import com.erdemakkuzu.issuemanagement.dto.ProjectDto;
 import com.erdemakkuzu.issuemanagement.service.impl.IssueServiceImpl;
 import com.erdemakkuzu.issuemanagement.util.ApiPaths;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(ApiPaths.IssueCtrl.CTRL)
-@Api(value =ApiPaths.IssueCtrl.CTRL, description = "IssueAPIs")
+@Api(value = ApiPaths.IssueCtrl.CTRL, description = "IssueAPIs")
 public class IssueController {
 
-    /// HTTP Metodları
-    // GET
-    // POST
-    // PUT
-    // DELETE
+  /// HTTP Metodları
+  // GET
+  // POST
+  // PUT
+  // DELETE
 
 
-    private final IssueServiceImpl issueServiceImpl;
+  private final IssueServiceImpl issueServiceImpl;
 
-    public IssueController(IssueServiceImpl issueServiceImpl){
+  public IssueController(IssueServiceImpl issueServiceImpl) {
 
-        this.issueServiceImpl=issueServiceImpl;
+    this.issueServiceImpl = issueServiceImpl;
 
-    }
-
-
-    @GetMapping("/{id}")
-    @ApiOperation(value = "Get by id operation",response = IssueDto.class)
-    public ResponseEntity<IssueDto> getById(@PathVariable(value = "id",required = true) Long id){
+  }
 
 
-        IssueDto issueDto=issueServiceImpl.getById(id);
+  @GetMapping("/{id}")
+  @ApiOperation(value = "Get by id operation", response = IssueDto.class)
+  public ResponseEntity<IssueDto> getById(@PathVariable(value = "id", required = true) Long id) {
 
-        return ResponseEntity.ok(issueDto);
+    IssueDto issueDto = issueServiceImpl.getById(id);
+
+    return ResponseEntity.ok(issueDto);
 
 
+  }
 
-    }
+  @PostMapping()
+  @ApiOperation(value = "Create project operation", response = IssueDto.class)
+  public ResponseEntity<IssueDto> createProject(@Valid @RequestBody IssueDto issueDto) {
 
-    @PostMapping()
-    @ApiOperation(value = "Create project operation",response = IssueDto.class)
-    public ResponseEntity<IssueDto>createProject(@Valid @RequestBody IssueDto issueDto){
+    return ResponseEntity.ok(issueServiceImpl.save(issueDto));
 
-        return ResponseEntity.ok(issueServiceImpl.save(issueDto));
+  }
 
-    }
-    @PutMapping("/{id}")
-    @ApiOperation(value = "Update project operation",response = IssueDto.class)
-    public ResponseEntity<IssueDto>updateProject(@PathVariable(value = "id",required = true) Long id,@Valid @RequestBody IssueDto issue){
-        //SOLID
-        return ResponseEntity.ok(issueServiceImpl.update(id,issue));
+  @PutMapping("/{id}")
+  @ApiOperation(value = "Update project operation", response = IssueDto.class)
+  public ResponseEntity<IssueDto> updateProject(
+      @PathVariable(value = "id", required = true) Long id, @Valid @RequestBody IssueDto issue) {
+    //SOLID
+    return ResponseEntity.ok(issueServiceImpl.update(id, issue));
 
-    }
+  }
 
-    @DeleteMapping("/{id}")
-    @ApiOperation(value = "Delete issue operation",response = Boolean.class)
-    public ResponseEntity<Boolean>delete(@PathVariable(value = "id",required = true) Long id){
+  @DeleteMapping("/{id}")
+  @ApiOperation(value = "Delete issue operation", response = Boolean.class)
+  public ResponseEntity<Boolean> delete(@PathVariable(value = "id", required = true) Long id) {
 
-        return ResponseEntity.ok(issueServiceImpl.delete(id));
+    return ResponseEntity.ok(issueServiceImpl.delete(id));
 
-    }
+  }
 
 
 }

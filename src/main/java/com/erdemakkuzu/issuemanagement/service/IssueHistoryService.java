@@ -9,12 +9,12 @@ import org.springframework.data.domain.Pageable;
  */
 public interface IssueHistoryService {
 
-    IssueHistory save(IssueHistory issueHistory);
+  IssueHistory save(IssueHistory issueHistory);
 
-    IssueHistory getById(Long id);
+  IssueHistory getById(Long id);
 
-    Page<IssueHistory> getAllPageable(Pageable pageable);
+  Page<IssueHistory> getAllPageable(Pageable pageable);
 
-    Boolean delete(IssueHistory issueHistory);
+  Boolean delete(IssueHistory issueHistory);
 
 }

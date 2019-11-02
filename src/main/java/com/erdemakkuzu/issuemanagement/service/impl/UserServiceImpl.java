@@ -13,35 +13,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+  public UserServiceImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
+  @Override
+  public User save(User user) {
+    // Bussiness Logic
+    if (user.getEmail() == null) {
+      throw new IllegalArgumentException("Username cannot be null");
     }
 
-    @Override
-    public User save(User user) {
-        // Bussiness Logic
-        if (user.getEmail() == null) {
-            throw new IllegalArgumentException("Username cannot be null");
-        }
+    user = userRepository.save(user);
+    return user;
+  }
 
-        user = userRepository.save(user);
-        return user;
-    }
+  @Override
+  public User getById(Long id) {
+    return userRepository.getOne(id);
+  }
 
-    @Override
-    public User getById(Long id) {
-        return userRepository.getOne(id);
-    }
+  @Override
+  public Page<User> getAllPageable(Pageable pageable) {
+    return userRepository.findAll(pageable);
+  }
 
-    @Override
-    public Page<User> getAllPageable(Pageable pageable) {
-        return userRepository.findAll(pageable);
-    }
-
-    @Override
-    public User getByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+  @Override
+  public User getByUsername(String username) {
+    return userRepository.findByUsername(username);
+  }
 }
